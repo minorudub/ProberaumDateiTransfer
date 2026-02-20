@@ -4,6 +4,12 @@ Ein lokaler Datei-Transfer-Server für den schnellen Austausch von Dateien zwisc
 
 ---
 
+## Download
+
+[![Download](https://img.shields.io/badge/Download-Latest%20Release-7c5cff?style=for-the-badge)](https://github.com/minorudub/minoru.ProberaumTransfer/releases/tag/v1.0.0)
+
+---
+
 ## Funktion
 
 Proberaum Transfer startet einen lokalen Webserver auf dem PC.  
