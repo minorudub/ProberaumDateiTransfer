@@ -1,6 +1,6 @@
 # Proberaum Transfer
 
-Ein lokaler Datei-Transfer-Server für den schnellen Austausch von Dateien zwischen PC und Smartphone im selben WLAN (z. B. über Smartphone-Hotspot).
+Ein lokaler Datei-Transfer-Server für den schnellen Austausch von Dateien zwischen PC und Smartphone im selben WLAN (z. B. über Smartphone-Hotspot oder X-Air18).
 
 ---
 
