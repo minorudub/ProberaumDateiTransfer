@@ -7,7 +7,7 @@ Ein lokaler Datei-Transfer-Server für den schnellen Austausch von Dateien zwisc
 ## Funktion
 
 Proberaum Transfer startet einen lokalen Webserver auf dem PC.  
-Über die angezeigte URL oder den generierten QR-Code kann mit einem Smartphone im Browser darauf zugegriffen werden.
+Über die angezeigte URL oder den generierten QR-Code kann mit einem Smartphone, oder jedem beliebigen Gerät im Netzwerk, im Browser darauf zugegriffen werden.
 
 Damit können Dateien:
 
