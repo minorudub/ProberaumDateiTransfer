@@ -1,0 +1,114 @@
+﻿<Window x:Class="minoru.SimpleDataTransfer.MainWindow"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+mc:Ignorable="d"
+Title="Proberaum Transfer" Height="480" Width="750" MinWidth="750" MinHeight="450"
+WindowStartupLocation="CenterScreen">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding WindowClosingCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="260"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header: title + help button -->
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Proberaum Datei-Transfer" Style="{StaticResource PageTitleStyle}"/>
+            <Button Grid.Column="1" Content="Anleitung" Command="{Binding ShowHelpCommand}" Background="#999"/>
+        </Grid>
+
+        <!-- Left: Einstellungen -->
+        <Border Grid.Row="1" Grid.Column="0" Margin="0,0,16,0" Style="{StaticResource CardBorderStyle}">
+            <StackPanel>
+                <TextBlock Text="Einstellungen" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Ordner" Foreground="{StaticResource SecondaryTextBrush}" Margin="0,0,0,4"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding FolderPath, Mode=OneWay}" IsReadOnly="True"/>
+                    <Button Grid.Column="1" Content="Wählen…" Margin="8,0,0,0" Command="{Binding ChooseFolderCommand}"/>
+                </Grid>
+
+                <TextBlock Text="Port" Foreground="{StaticResource SecondaryTextBrush}" Margin="0,12,0,4"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0" Text="{Binding Port}" Width="100"/>
+
+                    <Button Grid.Column="1" Content="Server starten" Margin="12,0,0,0"
+                            Command="{Binding StartServerCommand}"
+                            Visibility="{Binding IsServerStopped, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <Button Grid.Column="1" Content="Server stoppen" Margin="12,0,0,0" Background="Crimson"
+                            Command="{Binding StopServerCommand}"
+                            Visibility="{Binding IsServerRunning, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="0" Margin="0,12,16,0" Style="{StaticResource CardBorderStyle}">
+            <StackPanel>
+                <TextBlock Text="Verbindungs-URL" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding ServerUrl, Mode=OneWay}" IsReadOnly="True"/>
+                    <Button Grid.Column="1" Content="Kopieren" Margin="8,0,0,0" Command="{Binding CopyUrlCommand}"/>
+                    <Button Grid.Column="2" Content="Browser öffnen" Margin="8,0,0,0" Command="{Binding OpenBrowserCommand}"/>
+                </Grid>
+                <TextBlock Text="{Binding StatusMessage}" Margin="0,12,0,0" TextWrapping="Wrap" Foreground="{StaticResource SecondaryTextBrush}"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" VerticalAlignment="Stretch" Style="{StaticResource CardBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="QR-Code scannen" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12" HorizontalAlignment="Center" Visibility="{Binding IsServerRunning, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                <TextBlock Grid.Row="1" Text="Server starten, um den QR-Code anzuzeigen." VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"
+                           Foreground="{StaticResource SecondaryTextBrush}"
+                           Visibility="{Binding IsServerStopped, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                <Viewbox Grid.Row="1" Stretch="Uniform" Margin="0,0,0,8">
+                    <Image Source="{Binding QrCodeImage}" Width="180" Height="180" Stretch="Uniform"/>
+                </Viewbox>
+                <TextBlock Grid.Row="2" Text="Im Smartphone-Browser öffnen" FontSize="12" HorizontalAlignment="Center" Foreground="{StaticResource SecondaryTextBrush}" Visibility="{Binding IsServerRunning, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>
